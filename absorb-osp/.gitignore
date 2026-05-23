@@ -1,0 +1,44 @@
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# Personal/local overrides
+.env
+.env.local
+*.local
+
+# Agent configs (user-specific)
+.claude/hooks/
+.claude/projects/
+.claude/agents/
+.claude/harness/
+
+# Build output
+dist/
+build/
+*.zip
+*.tar.gz
+
+# Logs
+*.log
+/logs/
+
+# Dependency dirs (user-specific)
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# OS-specific
+*.bat.user
+*.sh.user

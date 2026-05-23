@@ -1,0 +1,69 @@
+# absorb-osp — Hermes Agent Integration
+# Copy to ~/.hermes/config/ or Hermes config path
+
+version: "1.0"
+name: absorb-osp
+description: "Systematic 12-step open-source project absorption workflow"
+
+# MCP Tool Registration
+mcp_tools:
+  absorb_osp_absorb:
+    name: absorb_osp_absorb
+    description: "Absorb an open-source project from a GitHub URL following the 12-step workflow"
+    input_schema:
+      type: object
+      properties:
+        github_url:
+          type: string
+          description: "GitHub repository URL to absorb"
+        depth:
+          type: string
+          enum: [auto, L1, L2, L3, L4, L5]
+          default: auto
+          description: "Target absorption depth (auto = determined by judge step)"
+      required:
+        - github_url
+
+  absorb_osp_list:
+    name: absorb_osp_list
+    description: "List all absorbed projects"
+    input_schema:
+      type: object
+      properties: {}
+
+  absorb_osp_status:
+    name: absorb_osp_status
+    description: "Check status of an absorbed project"
+    input_schema:
+      type: object
+      properties:
+        project_name:
+          type: string
+          description: "Name of the absorbed project"
+      required:
+        - project_name
+
+  absorb_osp_consolidate:
+    name: absorb_osp_consolidate
+    description: "Run quarterly consolidation — merge similar projects, upgrade capabilities"
+    input_schema:
+      type: object
+      properties: {}
+
+# Proxy Routes for Absorbed Services
+proxy:
+  routes:
+    - name: absorbed-services
+      prefix: /absorbed
+      upstream: "{{ABSORBED_UPSTREAM}}"
+      timeout: 30s
+
+# System Prompt Injection
+system_prompt:
+  - role: system
+    content: |
+      You have access to the absorb-osp workflow for evaluating and absorbing open-source projects.
+      When the user provides a GitHub URL, follow the 12-step closed-loop flywheel:
+      Triage → Verify → Evaluate → Judge → Classify → Internalize → Load → Integrate → Verify → Sync → Iterate → Evolve.
+      Always security-audit first. Reject dangerous projects with clear reasoning.
+      After absorption, sync all indexes and create the required artifacts.
