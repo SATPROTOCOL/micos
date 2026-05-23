@@ -91,7 +91,6 @@ privacy-check: ## Scan for potential privacy leaks
 		exit 1; \
 	fi
 	@$(PYTHON) scripts/privacy-check.py absorb-osp/
-	@$(PYTHON) scripts/privacy-check.py geo-engine/
 	@echo "✅ Privacy scan complete."
 
 security-audit: ## Run automated security red-flag scanner
@@ -160,18 +159,3 @@ clean: ## Clean build artifacts
 
 install: ## Install to Claude Code
 	@cd absorb-osp && bash install.sh
-
-# ── geo-engine ───────────────────────────────────────────
-
-geo-engine-check: ## Verify geo-engine required files
-	@cd geo-engine && make check
-
-geo-engine-privacy-check: ## Privacy scan geo-engine/
-	@if [ -z "$(PYTHON)" ]; then echo "Python required"; exit 1; fi
-	@$(PYTHON) scripts/privacy-check.py geo-engine/
-
-geo-engine-dev-up: ## Start geo-engine services
-	@cd geo-engine && docker compose up -d
-
-geo-engine-dev-down: ## Stop geo-engine services
-	@cd geo-engine && docker compose down
