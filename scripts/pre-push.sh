@@ -17,8 +17,9 @@ echo ""
 # 1. Privacy check
 echo "📋 Step 1/3: Scanning for privacy leaks..."
 PYTHON=""
-command -v python3 &>/dev/null && PYTHON="python3"
-[ -z "$PYTHON" ] && command -v python &>/dev/null && PYTHON="python"
+# Test python execution directly (not command -v, which catches Windows Store stubs)
+python -c "import sys; sys.exit(0)" 2>/dev/null && PYTHON="python" || true
+[ -z "$PYTHON" ] && python3 -c "import sys; sys.exit(0)" 2>/dev/null && PYTHON="python3" || true
 if [ -n "$PYTHON" ]; then
     "$PYTHON" "$REPO_ROOT/scripts/privacy-check.py" "$REPO_ROOT/absorb-osp/" || exit 1
 else
