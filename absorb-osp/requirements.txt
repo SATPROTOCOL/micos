@@ -1,0 +1,10 @@
+# absorb-osp — Python Dependencies
+# Install: pip install -r requirements.txt
+# Dev install: pip install -r requirements.txt -e ".[dev]"
+
+# Core
+typer>=0.9.0            # CLI framework
+rich>=13.0.0            # Terminal formatting
+
+# MCP (optional: for AI agent integration)
+# mcp>=1.0.0            # Uncomment for MCP server support
