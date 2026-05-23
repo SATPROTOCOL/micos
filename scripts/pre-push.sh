@@ -16,10 +16,11 @@ echo ""
 
 # 1. Privacy check
 echo "📋 Step 1/3: Scanning for privacy leaks..."
-if command -v python3 &>/dev/null; then
-    python3 "$REPO_ROOT/scripts/privacy-check.py" "$REPO_ROOT/absorb-osp/" || exit 1
-elif command -v python &>/dev/null; then
-    python "$REPO_ROOT/scripts/privacy-check.py" "$REPO_ROOT/absorb-osp/" || exit 1
+PYTHON=""
+command -v python3 &>/dev/null && PYTHON="python3"
+[ -z "$PYTHON" ] && command -v python &>/dev/null && PYTHON="python"
+if [ -n "$PYTHON" ]; then
+    "$PYTHON" "$REPO_ROOT/scripts/privacy-check.py" "$REPO_ROOT/absorb-osp/" || exit 1
 else
     echo "⚠️  Python not found — skipping privacy scan. Install Python 3 to enable."
 fi
